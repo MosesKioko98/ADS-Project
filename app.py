@@ -1,10 +1,12 @@
- 
+import joblib 
 import pickle
 import streamlit as st
  
 # loading the trained model
-ourfile= open('diabetic_model.pkl', 'rb') 
-classifier = pickle.load(ourfile)
+#ourfile= open('diabetic_model.pkl', 'rb') 
+#classifier = pickle.load(ourfile)
+filename = './diabetic_model.pkl'
+classifier=joblib.load(filename)
  
 @st.cache()
   
@@ -67,7 +69,5 @@ def main():
         result = prediction(Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age) 
         st.success('Your status is {}'.format(result))
         
-     
-    
 if __name__=='__main__':
     main()
