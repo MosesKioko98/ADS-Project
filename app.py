@@ -1,6 +1,6 @@
 import pandas as pd
 df = pd.read_csv("diabetes.csv")
-df.info()
+#df.info()
 # checking for missing values
 df.isnull().sum()
 # creating a copy of the dataset
@@ -48,12 +48,16 @@ df1["Outcome"] = df1["Outcome"].astype("category").cat.as_ordered()
     #df1.boxplot(col,ax=ax)
 #plt.show()
 # 4. Feature selection
-cor=df1.corr()
+#cor=df1.corr()
 #cor
 #import seaborn as sns
 #plt.figure(figsize=(12,10))
 #sns.heatmap(cor,annot=True,cmap=plt.cm.Reds)
 #plt.show()
+# Separate the features from labels
+features=["Pregnancies","Glucose","BloodPressure","SkinThickness","Insulin","BMI","DiabetesPedigreeFunction","Age"]
+label=["Outcome"]
+x,y = df1[features].values,df1[label].values
 # 5. Split the data into training and validation set
 from sklearn.model_selection import train_test_split
 # split data 80%-20% into training and test set
