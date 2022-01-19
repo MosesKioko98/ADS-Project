@@ -5,8 +5,6 @@ df.info()
 df.isnull().sum()
 # creating a copy of the dataset
 df1=df.copy()
-df1.head()
-df1.columns
 # Descriptive statistics
 df1.describe()
 import numpy as np
@@ -14,21 +12,20 @@ import numpy as np
 df1[['Glucose','BloodPressure','SkinThickness','Insulin', 'BMI']] = df1[['Glucose','BloodPressure','SkinThickness','Insulin', 'BMI']].replace(0,np.NaN)
 # checking for missing values
 df1.isnull().sum()
-df1.head()
 df1.to_csv("df1.csv",index=False)
-df1.columns
-import matplotlib.pyplot as plt
+
+#import matplotlib.pyplot as plt
 # creating an histogram for each numeric feature
 numeric_features=df1.drop("Outcome",axis=1)
-for col in numeric_features:
-    fig=plt.figure(figsize=(9,6))
-    ax=fig.gca()
-    feature=df1[col]
-    feature.hist(ax=ax)
-    ax.axvline(feature.mean(),color = 'magenta',linestyle='dashed',linewidth=2)
-    ax.axvline(feature.median(),color = 'cyan',linestyle='dashed',linewidth=2)
-    ax.set_title(col)
-plt.show()
+#for col in numeric_features:
+    #fig=plt.figure(figsize=(9,6))
+    #ax=fig.gca()
+    #feature=df1[col]
+    #feature.hist(ax=ax)
+    #ax.axvline(feature.mean(),color = 'magenta',linestyle='dashed',linewidth=2)
+    #ax.axvline(feature.median(),color = 'cyan',linestyle='dashed',linewidth=2)
+    #ax.set_title(col)
+#plt.show()
 # Data Preprocessing
 # 1. Imputation
 df1["Glucose"].fillna((df1["Glucose"].mean()),inplace=True)
@@ -37,27 +34,26 @@ df1["SkinThickness"].fillna((df1["SkinThickness"].mean()),inplace=True)
 df1["Insulin"].fillna((df1["Insulin"].median()),inplace=True)
 df1["BMI"].fillna((df1["BMI"].mean()),inplace=True)
 # confirming if the dataset does not have missing values
-df1.isnull().sum()
-df1
+#df1.isnull().sum()
 # 2. Categorical encoding
-df1["Outcome"].value_counts()
-df1.info()
+#df1["Outcome"].value_counts()
+#df1.info()
 # converting the target variables to category
 df1["Outcome"] = df1["Outcome"].astype("category").cat.as_ordered()
-df1.info()
+#df1.info()
 # 3. Checking for outliers
-for col in numeric_features:
-    fig=plt.figure(figsize=(9,6))
-    ax=fig.gca()
-    df1.boxplot(col,ax=ax)
-plt.show()
+#for col in numeric_features:
+    #fig=plt.figure(figsize=(9,6))
+    #ax=fig.gca()
+    #df1.boxplot(col,ax=ax)
+#plt.show()
 # 4. Feature selection
 cor=df1.corr()
-cor
-import seaborn as sns
-plt.figure(figsize=(12,10))
-sns.heatmap(cor,annot=True,cmap=plt.cm.Reds)
-plt.show()
+#cor
+#import seaborn as sns
+#plt.figure(figsize=(12,10))
+#sns.heatmap(cor,annot=True,cmap=plt.cm.Reds)
+#plt.show()
 # 5. Split the data into training and validation set
 from sklearn.model_selection import train_test_split
 # split data 80%-20% into training and test set
@@ -92,11 +88,11 @@ print("Overall Precision:",precision_score(y_test,predictions))
 print("Overall Recall:",recall_score(y_test,predictions))
 from sklearn.metrics import confusion_matrix
 # print the confusion matrix
-cm=confusion_matrix(y_test,predictions)
-fig=sns.heatmap(pd.DataFrame(cm),annot=True,cmap=plt.cm.Blues)
-plt.title("confusion_matrix")
-plt.ylabel("Actual Label")
-plt.xlabel("Predicted Label")
+#cm=confusion_matrix(y_test,predictions)
+#fig=sns.heatmap(pd.DataFrame(cm),annot=True,cmap=plt.cm.Blues)
+#plt.title("confusion_matrix")
+#plt.ylabel("Actual Label")
+#plt.xlabel("Predicted Label")
 from sklearn.metrics import roc_auc_score
 y_score=model.predict_proba(x_test)
 auc = roc_auc_score(y_test,y_score[:,1])
